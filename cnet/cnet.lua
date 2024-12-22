@@ -1,11 +1,13 @@
 local cnet = {}
 
 local event = require("event")
+local enc = require("asciiencryption")
 local component = require("component")
 local json = require("json")
 local tunnel = component.tunnel
 
 local ports = {}
+local encryptkey = ""
 
 cnet.getip = function ()
     local adress = tunnel.address
@@ -25,8 +27,15 @@ cnet.isopen = function ( port )
     end
 end
 
+cnet.setencrypt = function ( key )
+    encryptkey = key
+end
+
 cnet.send = function ( from, to, port, message )
     local Packed = json.encode({from, to, port, message})
+    if encryptkey ~= "" then
+        Packed = enc.encrypt(Packed, encryptkey)
+    end
     tunnel.send(Packed)
 end
 
