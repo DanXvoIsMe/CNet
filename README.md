@@ -4,7 +4,6 @@ A simple library for controlling linked card in open computers minecraft mod.
 ### What this require?
 - JSON Lua Library made by rxi.
 - ASCII encryptor made by danxvo (me)
-*All of this is automaticlly installed.*
 
 ### Api reference
 - *getip(): return you'r ip*
