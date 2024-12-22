@@ -42,6 +42,8 @@ end
 cnet.recive = function (mip)
     local _, _, rfrom, _, message = event.pull("modem_message")
 
+    message = enc.decrypt(message, encryptkey)
+
     local Unpacked = json.decode(message)
     local from = Unpacked[1]
     local to = Unpacked[2]
