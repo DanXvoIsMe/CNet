@@ -11,4 +11,9 @@ JSON Lua Library made by rxi.
 - *send(from: string, to: string, port: number, message: any): send packet to decided server or computer if port is open*
 - *recive(mip: string): wait for a packet*
 
+### Install
+```bash
+wget -f https://raw.githubusercontent.com/DanXvoIsMe/CNet/main/installer.lua /tmp/installer.lua && lua /tmp/installer.lua
+```
+
 ### Made by danxvo
