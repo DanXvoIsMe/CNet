@@ -7,6 +7,7 @@ JSON Lua Library made by rxi.
 ### Api reference
 - *getip(): return you'r ip*
 - *openport(port: number): opens port on you'r computer*
+- *isopen(port: number): return true if port is open
 - *send(from: string, to: string, port: number, message: any): send packet to decided server or computer if port is open*
 - *recive(mip: string): wait for a packet*
 
