@@ -13,8 +13,8 @@ A simple library for controlling linked card in open computers minecraft mod.
 - *cnet.send(from: string, to: string, port: number, message: any): send packet to decided server or computer if port is open*
 - *cnet.recive(mip: string): wait for a packet and when recive then return 3 values msg, from, port*
 #### SPT (Secure Package Transfer)
-- *spt.use: bool*
-- *spt.sptkey: bool*
+- *cnet.spt.use: bool*
+- *cnet.spt.sptkey: bool*
 
 ### Install
 ```bash
