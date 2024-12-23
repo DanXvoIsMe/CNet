@@ -47,6 +47,10 @@ cnet.recive = function (mip)
     end
 
     local Unpacked = json.decode(message)
+    local from = nil
+    local to = nil
+    local port = nil
+    local msg = nil
     for i, a in pairs(Unpacked) do
         if i == 1 then
             from = a
@@ -61,7 +65,7 @@ cnet.recive = function (mip)
     if from == string.sub(rfrom, 1, 3) and to == mip and ports[port] == true then
         return msg, from, port
     else
-        cnet.recive(mip)
+        return cnet.recive(mip)
     end
 end
 
