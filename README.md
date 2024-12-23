@@ -10,7 +10,7 @@ A simple library for controlling linked card in open computers minecraft mod.
 - *openport(port: number): opens port on you'r computer*
 - *isopen(port: number): return true if port is open*
 - *send(from: string, to: string, port: number, message: any): send packet to decided server or computer if port is open*
-- *recive(mip: string): wait for a packet*
+- *recive(mip: string): wait for a packet and when recive then return 3 values msg, from, port*
 
 ### Install
 ```bash
