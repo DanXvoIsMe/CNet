@@ -59,7 +59,7 @@ cnet.recive = function (mip)
         end
     end
     if from == string.sub(rfrom, 1, 3) and to == mip and ports[port] == true then
-        return msg
+        return msg, from, port
     end
 end
 
