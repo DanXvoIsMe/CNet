@@ -40,21 +40,26 @@ cnet.send = function ( from, to, port, message )
 end
 
 cnet.recive = function (mip)
-    local _, _, rfrom, _, message = event.pull("modem_message")
+    local  _, _, rfrom, _, _, message = event.pull("modem_message")
 
-    message = enc.decrypt(message, encryptkey)
+    if encryptkey ~= "" then
+        message = enc.decrypt(message, encryptkey)
+    end
 
     local Unpacked = json.decode(message)
-    local from = Unpacked[1]
-    local to = Unpacked[2]
-    local port = Unpacked[3]
-    local msg = Unpacked[4]
-    if from == rfrom then
-        if to == mip then
-            if ports[port] == true then
-                return msg, port
-            end
+    for i, a in pairs(Unpacked) do
+        if i == 1 then
+            from = a
+        elseif i == 2 then
+            to = a
+        elseif i == 3 then
+            port = a
+        elseif i == 4 then
+            msg = a
         end
+    end
+    if from == string.sub(rfrom, 1, 3) and to == mip and ports[port] == true then
+        return msg
     end
 end
 
