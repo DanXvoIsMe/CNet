@@ -1,4 +1,7 @@
+local spt = {}
 local cnet = {}
+
+cnet.spt = spt
 
 local event = require("event")
 local enc = require("asciiencryption")
@@ -7,7 +10,6 @@ local json = require("json")
 local tunnel = component.tunnel
 
 local ports = {}
-local encryptkey = ""
 
 cnet.getip = function ()
     local adress = tunnel.address
@@ -27,14 +29,13 @@ cnet.isopen = function ( port )
     end
 end
 
-cnet.setencrypt = function ( key )
-    encryptkey = key
-end
+spt.use = false
+spt.key = ""
 
 cnet.send = function ( from, to, port, message )
     local Packed = json.encode({from, to, port, message})
-    if encryptkey ~= "" then
-        Packed = enc.encrypt(Packed, encryptkey)
+    if spt.use then
+        Packed = enc.encrypt(Packed, spt.key)
     end
     tunnel.send(Packed)
 end
@@ -42,8 +43,8 @@ end
 cnet.recive = function (mip)
     local  _, _, rfrom, _, _, message = event.pull("modem_message")
 
-    if encryptkey ~= "" then
-        message = enc.decrypt(message, encryptkey)
+    if spt.use then
+        message = enc.decrypt(message, spt.key)
     end
 
     local Unpacked = json.decode(message)
