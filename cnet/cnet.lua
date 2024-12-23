@@ -127,7 +127,7 @@ cnet.listen = function ( mip, event_name )
             end
         end
         if from == string.sub(rfrom, 1, 3) and to == mip and ports[port] == true and dolisten == true then
-            event.push("cnet_message", from, port, msg)
+            event.push(event_name, from, port, msg)
         end
     end)
 end
