@@ -38,6 +38,7 @@ local json = require("json")
 local tunnel = component.tunnel
 
 local ports = {}
+local dolisten = false
 
 cnet.getip = function ()
     local adress = tunnel.address
@@ -96,6 +97,43 @@ cnet.recive = function (mip)
     else
         return cnet.recive(mip)
     end
+end
+
+function on_recive()
+    
+end
+
+cnet.listen = function ( mip, event_name )
+    dolisten = true
+    event.listen("modem_message", function ( _, _, rfrom, _, _, message )
+        if spt.use then
+            message = enc.decrypt(message, spt.key)
+        end
+    
+        local Unpacked = json.decode(message)
+        local from = nil
+        local to = nil
+        local port = nil
+        local msg = nil
+        for i, a in pairs(Unpacked) do
+            if i == 1 then
+                from = a
+            elseif i == 2 then
+                to = a
+            elseif i == 3 then
+                port = a
+            elseif i == 4 then
+                msg = a
+            end
+        end
+        if from == string.sub(rfrom, 1, 3) and to == mip and ports[port] == true and dolisten == true then
+            event.push("cnet_message", from, port, msg)
+        end
+    end)
+end
+
+cnet.unlisten = function (  )
+    dolisten = false
 end
 
 return cnet
