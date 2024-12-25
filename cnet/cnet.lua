@@ -25,7 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ]]
-
 local spt = {}
 local cnet = {}
 
@@ -99,12 +98,7 @@ cnet.recive = function (mip)
     end
 end
 
-function on_recive()
-    
-end
-
-cnet.listen = function ( mip, event_name )
-    dolisten = true
+cnet.listen = function ( mip, callback )
     event.listen("modem_message", function ( _, _, rfrom, _, _, message )
         if spt.use then
             message = enc.decrypt(message, spt.key)
@@ -126,14 +120,10 @@ cnet.listen = function ( mip, event_name )
                 msg = a
             end
         end
-        if from == string.sub(rfrom, 1, 3) and to == mip and ports[port] == true and dolisten == true then
-            event.push(event_name, from, port, msg)
+        if from == string.sub(rfrom, 1, 3) and to == mip and ports[port] == true then
+            callback(msg, from, port)
         end
     end)
-end
-
-cnet.unlisten = function (  )
-    dolisten = false
 end
 
 return cnet
