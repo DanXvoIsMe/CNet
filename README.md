@@ -12,8 +12,7 @@ A simple library for controlling linked card in open computers minecraft mod.
 - *cnet.isopen(port: number): return true if port is open*
 - *cnet.send(from: string, to: string, port: number, message: any): send packet to decided server or computer if port is open*
 - *cnet.recive(mip: string): wait for a packet and when recive then return 3 values msg, from, port*
-- *cnet.listen(mip: string, event_name: string): start a listner*
-- *cnet.unlisten(): stop a listner*
+- *cnet.listen(mip: string, callback: function): start a listner*
 #### SPT (Secure Package Transfer)
 - *cnet.spt.use: bool*
 - *cnet.spt.sptkey: bool*
